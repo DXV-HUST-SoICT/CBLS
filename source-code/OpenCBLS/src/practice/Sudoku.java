@@ -76,6 +76,7 @@ public class Sudoku {
 		int it = 0;
 		
 		while (it <= 1000000 && S.violations() > 0) {
+			System.out.println(it + " " + S.violations());
 			cand.clear();
 			int minDelta = Integer.MAX_VALUE;
 			for (int i = 0; i < 9; i++) {
@@ -86,7 +87,9 @@ public class Sudoku {
 							cand.clear();
 							minDelta = delta;
 						}
-						cand.add(new Move(i, j1, j2));
+						if (delta <= minDelta) {
+							cand.add(new Move(i, j1, j2));
+						}
 					}
 				}
 			}

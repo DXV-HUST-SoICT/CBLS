@@ -38,6 +38,7 @@ public class HCSExample {
 	}
 	
 	private void printResult() {
+		System.out.println(S.violations());
 		for (int i = 0; i < this.n; i++) {
 			System.out.print(x[i].getValue() + " ");
 		}

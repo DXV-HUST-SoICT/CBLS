@@ -8,18 +8,20 @@ import localsearch.model.IFunction;
 import localsearch.model.VarIntLS;
 import vuongdx.search.INeighborLS;
 
-public class NTwoSwap implements INeighborLS {
+public class NSudokuTwoSwap implements INeighborLS {
 	
-	public int idx1;
-	public int idx2;
+	int row;
+	int col1;
+	int col2;
 	
-	public NTwoSwap() {
+	public NSudokuTwoSwap() {
 		
 	}
 	
-	public NTwoSwap(int idx1, int idx2) {
-		this.idx1 = idx1;
-		this.idx2 = idx2;
+	public NSudokuTwoSwap(int row, int col1, int col2) {
+		this.row = row;
+		this.col1 = col1;
+		this.col2 = col2;
 	}
 
 	@Override
@@ -27,8 +29,9 @@ public class NTwoSwap implements INeighborLS {
 		VarIntLS[] mVar;
 		try {
 			mVar = dVar.get("main");
-			VarIntLS var1 = mVar[this.idx1];
-			VarIntLS var2 = mVar[this.idx2];
+			int n = (int) Math.sqrt(mVar.length);
+			VarIntLS var1 = mVar[row * n + col1];
+			VarIntLS var2 = mVar[row * n + col2];
 			int val1 = var1.getValue();
 			int val2 = var2.getValue();
 			var1.setValuePropagate(val2);
@@ -43,8 +46,10 @@ public class NTwoSwap implements INeighborLS {
 	public int getMoveDelta(IFunction f, HashMap<String, VarIntLS[]> dVar) {
 		VarIntLS[] mVar;
 		try {
-			mVar = dVar.get("main");VarIntLS var1 = mVar[this.idx1];
-			VarIntLS var2 = mVar[this.idx2];
+			mVar = dVar.get("main");
+			int n = (int) Math.sqrt(mVar.length);
+			VarIntLS var1 = mVar[row * n + col1];
+			VarIntLS var2 = mVar[row * n + col2];
 			return f.getSwapDelta(var1, var2);
 		} catch (Exception e) {
 			return -1;
@@ -55,8 +60,10 @@ public class NTwoSwap implements INeighborLS {
 	public int getMoveDelta(IConstraint cs, HashMap<String, VarIntLS[]> dVar) {
 		VarIntLS[] mVar;
 		try {
-			mVar = dVar.get("main");VarIntLS var1 = mVar[this.idx1];
-			VarIntLS var2 = mVar[this.idx2];
+			mVar = dVar.get("main");
+			int n = (int) Math.sqrt(mVar.length);
+			VarIntLS var1 = mVar[row * n + col1];
+			VarIntLS var2 = mVar[row * n + col2];
 			return cs.getSwapDelta(var1, var2);
 		} catch (Exception e) {
 			return -1;
@@ -68,13 +75,16 @@ public class NTwoSwap implements INeighborLS {
 		VarIntLS[] mVar;
 		try {
 			mVar = dVar.get("main");
-			ArrayList<NTwoSwap> tmpNeighborList = new ArrayList<NTwoSwap>();
-			for (int i = 0; i < mVar.length; i++) {
-				for (int j = i + 1; j < mVar.length; j++) {
-					tmpNeighborList.add(new NTwoSwap(i, j));
+			ArrayList<NSudokuTwoSwap> tmpNeighborList = new ArrayList<NSudokuTwoSwap>();
+			int n = (int) Math.sqrt(mVar.length);
+			for (int i = 0; i < n; i++) {
+				for (int j1 = 0; j1 < n; j1++) {
+					for (int j2 = j1 + 1; j2 < n; j2++) {
+						tmpNeighborList.add(new NSudokuTwoSwap(i, j1, j2));
+					}
 				}
 			}
-			NTwoSwap[] neighborList = new NTwoSwap[tmpNeighborList.size()];
+			NSudokuTwoSwap[] neighborList = new NSudokuTwoSwap[tmpNeighborList.size()];
 			for (int i = 0; i < tmpNeighborList.size(); i++) {
 				neighborList[i] = tmpNeighborList.get(i);
 			}
@@ -82,6 +92,7 @@ public class NTwoSwap implements INeighborLS {
 		} catch (Exception e) {
 			return null;
 		}
+		
 	}
 
 }

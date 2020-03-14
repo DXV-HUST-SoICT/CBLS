@@ -61,7 +61,7 @@ public class NQueen {
 	}
 	
 	public static void main(String[] args) {
-		NQueen nqueen = new NQueen(100);
+		NQueen nqueen = new NQueen(200);
 		nqueen.stateModel();
 		nqueen.search();
 		nqueen.printResult();

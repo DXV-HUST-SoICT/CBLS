@@ -1,8 +1,12 @@
 package practice;
 
 import localsearch.model.*;
+
+import java.util.HashMap;
+
 import localsearch.constraints.alldifferent.*;
 import localsearch.functions.basic.*;
+import vuongdx.search.HillClimbingSearch;
 import vuongdx.search.LocalSearch;
 import vuongdx.search.legal.LBestNeighbor;
 import vuongdx.search.neighbor.NOneChange;
@@ -47,33 +51,67 @@ public class NQueen2 {
 		mgr.close();
 	}
 	
-	private void search() {
-		System.out.println("\nAlgo 1");
-		LocalSearch s1 = new LocalSearch(new NOneChange(),
-				new LBestNeighbor(), new SRandom(), cs);
+	private void search1() {
+		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
+		dVar.put("main", x);
+		LocalSearch s = new LocalSearch(cs, null, dVar,
+				new NOneChange(),
+				new LBestNeighbor(),
+				new SRandom());
 		GRandom rs = new GRandom();
-		rs.generateSolution(cs);
+		rs.generateSolution(dVar.get("main"));
 		int curVio = cs.violations();
 		for (int it = 0; it < 1000; it++) {
 			System.out.println(it + " " + curVio);
 			if (curVio == 0) {
 				break;
 			}
-			curVio = s1.search();
+			curVio = s.search();
 		}
-		System.out.println("\nAlgo 2");
-		LocalSearch s2 = new LocalSearch(new NTwoSwap(),
-				new LBestNeighbor(), new SRandom(), cs);
+	}
+	
+	private void search2() {
+		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
+		dVar.put("main", x);
+		LocalSearch s = new LocalSearch(cs, null, dVar,
+				new NTwoSwap(),
+				new LBestNeighbor(),
+				new SRandom());
 		GAllDifferent ds = new GAllDifferent();
-		ds.generateSolution(cs);
-		curVio = cs.violations();
+		ds.generateSolution(dVar.get("main"));
+		int curVio = cs.violations();
 		for (int it = 0; it < 1000; it++) {
 			System.out.println(it + " " + curVio);
 			if (curVio == 0) {
 				break;
 			}
-			curVio = s2.search();
+			curVio = s.search();
 		}
+	}
+	
+	private void search3() {
+		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
+		dVar.put("main", x);
+		LocalSearch s = new HillClimbingSearch(cs, null, dVar, new NTwoSwap());
+		GAllDifferent ds = new GAllDifferent();
+		ds.generateSolution(dVar.get("main"));
+		int curVio = cs.violations();
+		for (int it = 0; it < 1000; it++) {
+			System.out.println(it + " " + curVio);
+			if (curVio == 0) {
+				break;
+			}
+			curVio = s.search();
+		}
+//		System.out.println(cs.getVariables().length);
+//		System.out.println(dVar.get("main").length);
+//		int count = 0;
+//		for (int i = 0; i < 500; i++) {
+//			if (cs.getVariables()[i] != dVar.get("main")[i]) {
+//				count++;
+//			}
+//		}
+//		System.out.println(count);
 	}
 	
 	private void printResult() {
@@ -84,9 +122,13 @@ public class NQueen2 {
 	}
 	
 	public static void main(String[] args) {
-		NQueen2 nqueen = new NQueen2(100);
+		NQueen2 nqueen = new NQueen2(500);
 		nqueen.stateModel();
-		nqueen.search();
+		nqueen.search1();
+		nqueen.printResult();
+		nqueen.search2();
+		nqueen.printResult();
+		nqueen.search3();
 		nqueen.printResult();
 	}
 }

@@ -1,29 +1,42 @@
 package vuongdx.search;
 
+import java.util.HashMap;
+
 import localsearch.model.ConstraintSystem;
+import localsearch.model.IFunction;
+import localsearch.model.VarIntLS;
 
 public class LocalSearch {
+	public ConstraintSystem cs;
+	public IFunction[] f;
+	public HashMap<String, VarIntLS[]> dVar;
 	public INeighborLS neighborRule;
 	public ILegalNeighborLS legalNeighborRule;
 	public ISelectNeighborLS selectNeighborRule;
-	public ConstraintSystem cs;
 	
 	public LocalSearch() {
 		
 	}
 	
-	public LocalSearch(INeighborLS neighborRule, ILegalNeighborLS legalNeighborRule, ISelectNeighborLS selectNeighborRule, ConstraintSystem cs) {
+	public LocalSearch(ConstraintSystem cs,
+			IFunction[] f,
+			HashMap<String, VarIntLS[]> dVar,
+			INeighborLS neighborRule,
+			ILegalNeighborLS legalNeighborRule,
+			ISelectNeighborLS selectNeighborRule) {
+		this.cs = cs;
+		this.f = f;
+		this.dVar = dVar;
 		this.neighborRule = neighborRule;
 		this.legalNeighborRule = legalNeighborRule;
 		this.selectNeighborRule = selectNeighborRule;
-		this.cs = cs;
 	}
 	
 	public int search() {
-		INeighborLS[] neighborList = this.neighborRule.listNeighbor(cs);
-		INeighborLS[] legalNeighborList = this.legalNeighborRule.listLegal(neighborList, cs);
-		INeighborLS selectedNeighbor = this.selectNeighborRule.select(legalNeighborList, neighborList, cs);
-		selectedNeighbor.movePropagate();
+		INeighborLS[] neighborList = this.neighborRule.listNeighbor(cs, null, dVar);
+		INeighborLS[] legalNeighborList = this.legalNeighborRule.listLegal(cs, null, dVar, neighborList);
+		INeighborLS selectedNeighbor = this.selectNeighborRule.select(cs, null, dVar, neighborList, legalNeighborList);
+		selectedNeighbor.movePropagate(dVar);
 		return cs.violations();
 	}
 	

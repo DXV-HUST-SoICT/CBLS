@@ -1,19 +1,21 @@
 package practice;
 
+import java.util.HashMap;
+
 import localsearch.constraints.alldifferent.AllDifferent;
 import localsearch.model.ConstraintSystem;
 import localsearch.model.LocalSearchManager;
 import localsearch.model.VarIntLS;
 import vuongdx.search.LocalSearch;
 import vuongdx.search.legal.LBestNeighbor;
-import vuongdx.search.neighbor.NTwoSwap;
+import vuongdx.search.neighbor.NSudokuTwoSwap;
 import vuongdx.search.select.SRandom;
 import vuongdx.search.solutiongenerator.GSudoku;
 
 public class Sudoku2 {
 	private LocalSearchManager mgr;
 	private VarIntLS[][] X;
-	private ConstraintSystem S;
+	private ConstraintSystem cs;
 	
 	private void stateModel() {
 		mgr = new LocalSearchManager();
@@ -25,13 +27,13 @@ public class Sudoku2 {
 			}
 		}
 		
-		S = new ConstraintSystem(mgr);
+		cs = new ConstraintSystem(mgr);
 		for (int i = 0; i < 9; i++) {
 			VarIntLS[] y = new VarIntLS[9];
 			for (int j = 0; j < 9; j++) {
 				y[j] = X[i][j];
 			}
-			S.post(new AllDifferent(y));
+			cs.post(new AllDifferent(y));
 		}
 		
 		for (int i = 0; i < 9; i++) {
@@ -39,7 +41,7 @@ public class Sudoku2 {
 			for (int j = 0; j < 9; j++) {
 				y[j] = X[j][i];
 			}
-			S.post(new AllDifferent(y));
+			cs.post(new AllDifferent(y));
 		}
 		
 		for (int I = 0; I <= 2; I++) {
@@ -52,7 +54,7 @@ public class Sudoku2 {
 						y[idx] = X[3 * I + i][3 * J + j];
 					}
 				}
-				S.post(new AllDifferent(y));
+				cs.post(new AllDifferent(y));
 			}
 		}
 		
@@ -60,12 +62,22 @@ public class Sudoku2 {
 	}
 	
 	private void search() {
+		VarIntLS[] tmpX = new VarIntLS[81];
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				tmpX[i * 9 + j] = X[i][j];
+			}
+		}
+		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
+		dVar.put("main", tmpX);
 		GSudoku ss = new GSudoku();
-		ss.generateSolution(S);
-		LocalSearch s = new LocalSearch(new NTwoSwap(),
-			new LBestNeighbor(), new SRandom(), S);
-		int curVio = S.violations();
-		for (int it = 0; it < 1000; it++) {
+		ss.generateSolution(dVar.get("main"));
+		LocalSearch s = new LocalSearch(cs, null, dVar,
+				new NSudokuTwoSwap(),
+				new LBestNeighbor(),
+				new SRandom());
+		int curVio = cs.violations();
+		for (int it = 0; it < 100; it++) {
 			System.out.println(it + " " + curVio);
 			if (curVio == 0) {
 				break;
@@ -75,7 +87,7 @@ public class Sudoku2 {
 	}
 	
 	private void printResult() {
-		System.out.println(S.violations());
+		System.out.println(cs.violations());
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				System.out.print(X[i][j].getValue() + " ");

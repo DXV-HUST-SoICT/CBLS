@@ -1,7 +1,7 @@
 package vuongdx.search;
 
-import localsearch.model.IConstraint;
+import localsearch.model.VarIntLS;
 
 public interface ISolutionGeneratorLS {
-	public void generateSolution(IConstraint cs);
+	public void generateSolution(VarIntLS[] dVar);
 }

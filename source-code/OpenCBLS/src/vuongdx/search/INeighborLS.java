@@ -3,7 +3,7 @@ package vuongdx.search;
 import localsearch.model.IConstraint;
 import localsearch.model.IFunction;
 
-public interface INeighbor {
+public interface INeighborLS {
 
 	public int movePropagate();
 
@@ -11,6 +11,6 @@ public interface INeighbor {
 	
 	public int getMoveDelta(IConstraint cs);
 	
-	public INeighbor[] listNeighbor(IConstraint cs);
+	public INeighborLS[] listNeighbor(IConstraint cs);
 
 }

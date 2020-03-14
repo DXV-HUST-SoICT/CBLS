@@ -4,9 +4,9 @@ import java.util.Random;
 
 import localsearch.model.IConstraint;
 import localsearch.model.VarIntLS;
-import vuongdx.search.ISolutionGenerator;
+import vuongdx.search.ISolutionGeneratorLS;
 
-public class RandomSolution implements ISolutionGenerator {
+public class GRandom implements ISolutionGeneratorLS {
 
 	@Override
 	public void generateSolution(IConstraint cs) {

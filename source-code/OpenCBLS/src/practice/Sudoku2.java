@@ -4,11 +4,11 @@ import localsearch.constraints.alldifferent.AllDifferent;
 import localsearch.model.ConstraintSystem;
 import localsearch.model.LocalSearchManager;
 import localsearch.model.VarIntLS;
-import vuongdx.search.Search;
-import vuongdx.search.legal.MinViolation;
-import vuongdx.search.neighbor.SwapTwoVariableValue;
-import vuongdx.search.select.SelectRandom;
-import vuongdx.search.solutiongenerator.SudokuSolution;
+import vuongdx.search.LocalSearch;
+import vuongdx.search.legal.LBestNeighbor;
+import vuongdx.search.neighbor.NTwoSwap;
+import vuongdx.search.select.SRandom;
+import vuongdx.search.solutiongenerator.GSudoku;
 
 public class Sudoku2 {
 	private LocalSearchManager mgr;
@@ -60,10 +60,10 @@ public class Sudoku2 {
 	}
 	
 	private void search() {
-		SudokuSolution ss = new SudokuSolution();
+		GSudoku ss = new GSudoku();
 		ss.generateSolution(S);
-		Search s = new Search(new SwapTwoVariableValue(),
-			new MinViolation(), new SelectRandom(), S);
+		LocalSearch s = new LocalSearch(new NTwoSwap(),
+			new LBestNeighbor(), new SRandom(), S);
 		int curVio = S.violations();
 		for (int it = 0; it < 1000; it++) {
 			System.out.println(it + " " + curVio);

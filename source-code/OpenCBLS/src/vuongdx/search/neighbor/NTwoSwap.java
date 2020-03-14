@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import localsearch.model.IConstraint;
 import localsearch.model.IFunction;
 import localsearch.model.VarIntLS;
-import vuongdx.search.INeighbor;
+import vuongdx.search.INeighborLS;
 
-public class SwapTwoVariableValue implements INeighbor {
+public class NTwoSwap implements INeighborLS {
 	
 	public VarIntLS var1;
 	public VarIntLS var2;
 	
-	public SwapTwoVariableValue() {
+	public NTwoSwap() {
 		
 	}
 	
-	public SwapTwoVariableValue(VarIntLS var1, VarIntLS var2) {
+	public NTwoSwap(VarIntLS var1, VarIntLS var2) {
 		this.var1 = var1;
 		this.var2 = var2;
 	}
@@ -41,19 +41,19 @@ public class SwapTwoVariableValue implements INeighbor {
 	}
 
 	@Override
-	public INeighbor[] listNeighbor(IConstraint cs) {
-		ArrayList<SwapTwoVariableValue> neighbor = new ArrayList<SwapTwoVariableValue>();
+	public INeighborLS[] listNeighbor(IConstraint cs) {
+		ArrayList<NTwoSwap> tmpNeighborList = new ArrayList<NTwoSwap>();
 		VarIntLS[] curSol = cs.getVariables();
 		for (int i = 0; i < curSol.length; i++) {
 			for (int j = i + 1; j < curSol.length; j++) {
-				neighbor.add(new SwapTwoVariableValue(curSol[i], curSol[j]));
+				tmpNeighborList.add(new NTwoSwap(curSol[i], curSol[j]));
 			}
 		}
-		SwapTwoVariableValue[] result = new SwapTwoVariableValue[neighbor.size()];
-		for (int i = 0; i < neighbor.size(); i++) {
-			result[i] = neighbor.get(i);
+		NTwoSwap[] neighborList = new NTwoSwap[tmpNeighborList.size()];
+		for (int i = 0; i < tmpNeighborList.size(); i++) {
+			neighborList[i] = tmpNeighborList.get(i);
 		}
-		return result;
+		return neighborList;
 	}
 
 }

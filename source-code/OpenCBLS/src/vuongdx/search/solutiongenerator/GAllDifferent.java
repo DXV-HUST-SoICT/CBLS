@@ -2,9 +2,9 @@ package vuongdx.search.solutiongenerator;
 
 import localsearch.model.IConstraint;
 import localsearch.model.VarIntLS;
-import vuongdx.search.ISolutionGenerator;
+import vuongdx.search.ISolutionGeneratorLS;
 
-public class AllDifferentSolution implements ISolutionGenerator {
+public class GAllDifferent implements ISolutionGeneratorLS {
 
 	@Override
 	public void generateSolution(IConstraint cs) {

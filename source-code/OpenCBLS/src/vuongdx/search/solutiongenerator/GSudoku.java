@@ -2,10 +2,10 @@ package vuongdx.search.solutiongenerator;
 
 import localsearch.model.IConstraint;
 import localsearch.model.VarIntLS;
-import vuongdx.search.ISolutionGenerator;
+import vuongdx.search.ISolutionGeneratorLS;
 import java.lang.Math;
 
-public class SudokuSolution implements ISolutionGenerator {
+public class GSudoku implements ISolutionGeneratorLS {
 
 	@Override
 	public void generateSolution(IConstraint cs) {

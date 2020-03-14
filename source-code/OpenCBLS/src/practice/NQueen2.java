@@ -3,13 +3,13 @@ package practice;
 import localsearch.model.*;
 import localsearch.constraints.alldifferent.*;
 import localsearch.functions.basic.*;
-import vuongdx.search.Search;
-import vuongdx.search.legal.MinViolation;
-import vuongdx.search.neighbor.OneVariableValueAssignment;
-import vuongdx.search.neighbor.SwapTwoVariableValue;
-import vuongdx.search.select.SelectRandom;
-import vuongdx.search.solutiongenerator.AllDifferentSolution;
-import vuongdx.search.solutiongenerator.RandomSolution;
+import vuongdx.search.LocalSearch;
+import vuongdx.search.legal.LBestNeighbor;
+import vuongdx.search.neighbor.NOneChange;
+import vuongdx.search.neighbor.NTwoSwap;
+import vuongdx.search.select.SRandom;
+import vuongdx.search.solutiongenerator.GAllDifferent;
+import vuongdx.search.solutiongenerator.GRandom;
 
 public class NQueen2 {
 	private int n; // number of queens
@@ -49,9 +49,9 @@ public class NQueen2 {
 	
 	private void search() {
 		System.out.println("\nAlgo 1");
-		Search s1 = new Search(new OneVariableValueAssignment(),
-				new MinViolation(), new SelectRandom(), cs);
-		RandomSolution rs = new RandomSolution();
+		LocalSearch s1 = new LocalSearch(new NOneChange(),
+				new LBestNeighbor(), new SRandom(), cs);
+		GRandom rs = new GRandom();
 		rs.generateSolution(cs);
 		int curVio = cs.violations();
 		for (int it = 0; it < 1000; it++) {
@@ -62,9 +62,9 @@ public class NQueen2 {
 			curVio = s1.search();
 		}
 		System.out.println("\nAlgo 2");
-		Search s2 = new Search(new SwapTwoVariableValue(),
-				new MinViolation(), new SelectRandom(), cs);
-		AllDifferentSolution ds = new AllDifferentSolution();
+		LocalSearch s2 = new LocalSearch(new NTwoSwap(),
+				new LBestNeighbor(), new SRandom(), cs);
+		GAllDifferent ds = new GAllDifferent();
 		ds.generateSolution(cs);
 		curVio = cs.violations();
 		for (int it = 0; it < 1000; it++) {

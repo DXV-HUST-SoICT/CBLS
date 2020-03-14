@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import localsearch.model.IConstraint;
 import localsearch.model.IFunction;
 import localsearch.model.VarIntLS;
-import vuongdx.search.INeighbor;
+import vuongdx.search.INeighborLS;
 
-public class OneVariableValueAssignment implements INeighbor {
+public class NOneChange implements INeighborLS {
 	
 	public VarIntLS var;
 	public int val;
 	
-	public OneVariableValueAssignment() {
+	public NOneChange() {
 		
 	}
 	
-	public OneVariableValueAssignment(VarIntLS var, int val) {
+	public NOneChange(VarIntLS var, int val) {
 		this.var = var;
 		this.val = val;
 	}
@@ -37,19 +37,19 @@ public class OneVariableValueAssignment implements INeighbor {
 		return delta;
 	}
 
-	public INeighbor[] listNeighbor(IConstraint cs) {
+	public INeighborLS[] listNeighbor(IConstraint cs) {
 		VarIntLS[] curSol = cs.getVariables();
-		ArrayList<OneVariableValueAssignment> neighbor = new ArrayList<OneVariableValueAssignment>();
+		ArrayList<NOneChange> tmpNeighborList = new ArrayList<NOneChange>();
 		for (int i = 0; i < curSol.length; i++) {
 			VarIntLS var = curSol[i];
 			for (int val = var.getMinValue(); val <= var.getMaxValue(); val++) {
-				neighbor.add(new OneVariableValueAssignment(var, val));
+				tmpNeighborList.add(new NOneChange(var, val));
 			}
 		}
-		OneVariableValueAssignment[] result = new OneVariableValueAssignment[neighbor.size()];
-		for (int i = 0; i < neighbor.size(); i++) {
-			result[i] = neighbor.get(i);
+		NOneChange[] neighborList = new NOneChange[tmpNeighborList.size()];
+		for (int i = 0; i < tmpNeighborList.size(); i++) {
+			neighborList[i] = tmpNeighborList.get(i);
 		}
-		return result;
+		return neighborList;
 	}
 }

@@ -45,6 +45,7 @@ public class NQueen {
 		MinMaxSelector mms = new MinMaxSelector(S);
 		int it = 0;
 		while (it < 100000 && S.violations() > 0) {
+			System.out.println(it + " " + S.violations());
 			VarIntLS sel_x = mms.selectMostViolatingVariable();
 			int sel_v = mms.selectMostPromissingValue(sel_x);
 			sel_x.setValuePropagate(sel_v); // local move
@@ -60,7 +61,7 @@ public class NQueen {
 	}
 	
 	public static void main(String[] args) {
-		NQueen nqueen = new NQueen(5000);
+		NQueen nqueen = new NQueen(100);
 		nqueen.stateModel();
 		nqueen.search();
 		nqueen.printResult();

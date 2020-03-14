@@ -1,8 +1,5 @@
 package practice;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import localsearch.constraints.alldifferent.AllDifferent;
 import localsearch.model.ConstraintSystem;
 import localsearch.model.LocalSearchManager;

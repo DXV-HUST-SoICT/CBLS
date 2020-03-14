@@ -2,7 +2,6 @@ package vuongdx.search;
 
 import localsearch.model.IConstraint;
 import localsearch.model.IFunction;
-import localsearch.model.VarIntLS;
 
 public interface INeighbor {
 

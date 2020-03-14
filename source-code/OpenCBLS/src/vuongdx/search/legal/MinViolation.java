@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import localsearch.model.IConstraint;
 import vuongdx.search.ILegal;
 import vuongdx.search.INeighbor;
-import vuongdx.search.neighbor.OneVariableValueAssignment;
 
 public class MinViolation implements ILegal {
 

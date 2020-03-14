@@ -10,6 +10,7 @@ import vuongdx.search.HillClimbingSearch;
 import vuongdx.search.LocalSearch;
 import vuongdx.search.legal.LBestNeighbor;
 import vuongdx.search.neighbor.NOneChange;
+import vuongdx.search.neighbor.NThreeSwap;
 import vuongdx.search.neighbor.NTwoSwap;
 import vuongdx.search.select.SRandom;
 import vuongdx.search.solutiongenerator.GAllDifferent;
@@ -114,6 +115,22 @@ public class NQueen2 {
 //		System.out.println(count);
 	}
 	
+	private void search4() {
+		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
+		dVar.put("main", x);
+		LocalSearch s = new HillClimbingSearch(cs, null, dVar, new NThreeSwap());
+		GAllDifferent ds = new GAllDifferent();
+		ds.generateSolution(dVar.get("main"));
+		int curVio = cs.violations();
+		for (int it = 0; it < 100; it++) {
+			System.out.println(it + " " + curVio);
+			if (curVio == 0) {
+				break;
+			}
+			curVio = s.search();
+		}
+	}
+	
 	private void printResult() {
 		System.out.println(cs.violations());
 		for (int i = 0; i < this.n; i++) {
@@ -122,13 +139,15 @@ public class NQueen2 {
 	}
 	
 	public static void main(String[] args) {
-		NQueen2 nqueen = new NQueen2(500);
+		NQueen2 nqueen = new NQueen2(200);
 		nqueen.stateModel();
 		nqueen.search1();
 		nqueen.printResult();
 		nqueen.search2();
 		nqueen.printResult();
 		nqueen.search3();
+		nqueen.printResult();
+		nqueen.search4();
 		nqueen.printResult();
 	}
 }

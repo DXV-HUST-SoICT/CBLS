@@ -10,6 +10,10 @@ public class NQueen {
 	LocalSearchManager mgr; // manager object
 	VarIntLS[] x; // decision variables
 	ConstraintSystem S;
+
+	public NQueen(int n) {
+		this.n = n;
+	}
 	
 	public void stateModel() {
 		mgr = new LocalSearchManager();
@@ -38,6 +42,13 @@ public class NQueen {
 	}
 	
 	public void search() {
+		System.out.println(S.getViolation());
 //		MinMaxSelector mms = new MinMaxSelector(S);
+	}
+
+	public static void main(String[] args) {
+		NQueen solver = new NQueen(10);
+		solver.stateModel();
+		solver.search();
 	}
 }

@@ -10,9 +10,9 @@ public class LocalSearch {
 	public ConstraintSystem cs;
 	public IFunction[] f;
 	public HashMap<String, VarIntLS[]> dVar;
-	public INeighborLS neighborRule;
-	public ILegalNeighborLS legalNeighborRule;
-	public ISelectNeighborLS selectNeighborRule;
+	public IMoveLS moveRule;
+	public ILegalMoveLS legalMoveRule;
+	public ISelectMoveLS selectMoveRule;
 	
 	public LocalSearch() {
 		
@@ -21,22 +21,22 @@ public class LocalSearch {
 	public LocalSearch(ConstraintSystem cs,
 			IFunction[] f,
 			HashMap<String, VarIntLS[]> dVar,
-			INeighborLS neighborRule,
-			ILegalNeighborLS legalNeighborRule,
-			ISelectNeighborLS selectNeighborRule) {
+			IMoveLS moveRule,
+			ILegalMoveLS legalMoveRule,
+			ISelectMoveLS selectMoveRule) {
 		this.cs = cs;
 		this.f = f;
 		this.dVar = dVar;
-		this.neighborRule = neighborRule;
-		this.legalNeighborRule = legalNeighborRule;
-		this.selectNeighborRule = selectNeighborRule;
+		this.moveRule = moveRule;
+		this.legalMoveRule = legalMoveRule;
+		this.selectMoveRule = selectMoveRule;
 	}
 	
 	public int search() {
-		INeighborLS[] neighborList = this.neighborRule.listNeighbor(cs, null, dVar);
-		INeighborLS[] legalNeighborList = this.legalNeighborRule.listLegal(cs, null, dVar, neighborList);
-		INeighborLS selectedNeighbor = this.selectNeighborRule.select(cs, null, dVar, neighborList, legalNeighborList);
-		selectedNeighbor.movePropagate(dVar);
+		IMoveLS[] moveList = this.moveRule.listMove(cs, null, dVar);
+		IMoveLS[] legalMoveList = this.legalMoveRule.listLegal(cs, null, dVar, moveList);
+		IMoveLS selectedMove = this.selectMoveRule.select(cs, null, dVar, moveList, legalMoveList);
+		selectedMove.movePropagate(dVar);
 		return cs.violations();
 	}
 	

@@ -6,19 +6,19 @@ import java.util.Random;
 import localsearch.model.IConstraint;
 import localsearch.model.IFunction;
 import localsearch.model.VarIntLS;
-import vuongdx.search.INeighborLS;
-import vuongdx.search.ISelectNeighborLS;
+import vuongdx.search.IMoveLS;
+import vuongdx.search.ISelectMoveLS;
 
-public class SRandom implements ISelectNeighborLS {
+public class SRandom implements ISelectMoveLS {
 
-	public INeighborLS select(IConstraint cs,
+	public IMoveLS select(IConstraint cs,
 			IFunction[] f,
 			HashMap<String, VarIntLS[]> dVar,
-			INeighborLS[] neighborList,
-			INeighborLS[] legalNeighborList) {
+			IMoveLS[] moveList,
+			IMoveLS[] legalMoveList) {
 		Random r = new Random();
-		int idx = r.nextInt(legalNeighborList.length);
-		return legalNeighborList[idx];
+		int idx = r.nextInt(legalMoveList.length);
+		return legalMoveList[idx];
 	}
 
 }

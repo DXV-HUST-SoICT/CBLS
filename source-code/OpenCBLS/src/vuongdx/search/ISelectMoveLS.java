@@ -6,11 +6,12 @@ import localsearch.model.IConstraint;
 import localsearch.model.IFunction;
 import localsearch.model.VarIntLS;
 
-public interface ILegalNeighborLS {
-	
-	public INeighborLS[] listLegal(IConstraint cs,
+public interface ISelectMoveLS {
+
+	public IMoveLS select(IConstraint cs,
 			IFunction[] f,
 			HashMap<String, VarIntLS[]> dVar,
-			INeighborLS[] neighborList);
-	
+			IMoveLS[] moveList,
+			IMoveLS[] legalMoveList);
+
 }

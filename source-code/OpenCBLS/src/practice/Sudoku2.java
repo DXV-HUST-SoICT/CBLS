@@ -7,10 +7,10 @@ import localsearch.model.ConstraintSystem;
 import localsearch.model.LocalSearchManager;
 import localsearch.model.VarIntLS;
 import vuongdx.search.LocalSearch;
-import vuongdx.search.legal.LBestNeighbor;
-import vuongdx.search.neighbor.NSudokuTwoSwap;
+import vuongdx.search.legal.LBestMove;
+import vuongdx.search.move.MTwoSwap;
 import vuongdx.search.select.SRandom;
-import vuongdx.search.solutiongenerator.GSudoku;
+import vuongdx.search.solutiongenerator.GAllDifferentAllSameRange;
 
 public class Sudoku2 {
 	private LocalSearchManager mgr;
@@ -62,19 +62,15 @@ public class Sudoku2 {
 	}
 	
 	private void search() {
-		VarIntLS[] tmpX = new VarIntLS[81];
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				tmpX[i * 9 + j] = X[i][j];
-			}
-		}
 		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
-		dVar.put("main", tmpX);
-		GSudoku ss = new GSudoku();
-		ss.generateSolution(dVar.get("main"));
+		for (int i = 0; i < 9; i++)  {
+			dVar.put("main_" + i, X[i]);
+		}
+		GAllDifferentAllSameRange ss = new GAllDifferentAllSameRange();
+		ss.generateSolution(dVar);
 		LocalSearch s = new LocalSearch(cs, null, dVar,
-				new NSudokuTwoSwap(),
-				new LBestNeighbor(),
+				new MTwoSwap(),
+				new LBestMove(),
 				new SRandom());
 		int curVio = cs.violations();
 		for (int it = 0; it < 100; it++) {

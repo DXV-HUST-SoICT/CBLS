@@ -8,12 +8,12 @@ import localsearch.constraints.alldifferent.*;
 import localsearch.functions.basic.*;
 import vuongdx.search.HillClimbingSearch;
 import vuongdx.search.LocalSearch;
-import vuongdx.search.legal.LBestNeighbor;
-import vuongdx.search.neighbor.NOneChange;
-import vuongdx.search.neighbor.NThreeSwap;
-import vuongdx.search.neighbor.NTwoSwap;
+import vuongdx.search.legal.LBestMove;
+import vuongdx.search.move.MOneChange;
+import vuongdx.search.move.MThreeSwap;
+import vuongdx.search.move.MTwoSwap;
 import vuongdx.search.select.SRandom;
-import vuongdx.search.solutiongenerator.GAllDifferent;
+import vuongdx.search.solutiongenerator.GAllDifferentAllSameRange;
 import vuongdx.search.solutiongenerator.GRandom;
 
 public class NQueen2 {
@@ -56,11 +56,11 @@ public class NQueen2 {
 		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
 		dVar.put("main", x);
 		LocalSearch s = new LocalSearch(cs, null, dVar,
-				new NOneChange(),
-				new LBestNeighbor(),
+				new MOneChange(),
+				new LBestMove(),
 				new SRandom());
 		GRandom rs = new GRandom();
-		rs.generateSolution(dVar.get("main"));
+		rs.generateSolution(dVar);
 		int curVio = cs.violations();
 		for (int it = 0; it < 1000; it++) {
 			System.out.println(it + " " + curVio);
@@ -75,11 +75,11 @@ public class NQueen2 {
 		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
 		dVar.put("main", x);
 		LocalSearch s = new LocalSearch(cs, null, dVar,
-				new NTwoSwap(),
-				new LBestNeighbor(),
+				new MTwoSwap(),
+				new LBestMove(),
 				new SRandom());
-		GAllDifferent ds = new GAllDifferent();
-		ds.generateSolution(dVar.get("main"));
+		GAllDifferentAllSameRange ds = new GAllDifferentAllSameRange();
+		ds.generateSolution(dVar);
 		int curVio = cs.violations();
 		for (int it = 0; it < 1000; it++) {
 			System.out.println(it + " " + curVio);
@@ -93,9 +93,9 @@ public class NQueen2 {
 	private void search3() {
 		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
 		dVar.put("main", x);
-		LocalSearch s = new HillClimbingSearch(cs, null, dVar, new NTwoSwap());
-		GAllDifferent ds = new GAllDifferent();
-		ds.generateSolution(dVar.get("main"));
+		LocalSearch s = new HillClimbingSearch(cs, null, dVar, new MTwoSwap());
+		GAllDifferentAllSameRange ds = new GAllDifferentAllSameRange();
+		ds.generateSolution(dVar);
 		int curVio = cs.violations();
 		for (int it = 0; it < 1000; it++) {
 			System.out.println(it + " " + curVio);
@@ -104,23 +104,15 @@ public class NQueen2 {
 			}
 			curVio = s.search();
 		}
-//		System.out.println(cs.getVariables().length);
-//		System.out.println(dVar.get("main").length);
-//		int count = 0;
-//		for (int i = 0; i < 500; i++) {
-//			if (cs.getVariables()[i] != dVar.get("main")[i]) {
-//				count++;
-//			}
-//		}
-//		System.out.println(count);
 	}
 	
+	@SuppressWarnings("unused")
 	private void search4() {
 		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
 		dVar.put("main", x);
-		LocalSearch s = new HillClimbingSearch(cs, null, dVar, new NThreeSwap());
-		GAllDifferent ds = new GAllDifferent();
-		ds.generateSolution(dVar.get("main"));
+		LocalSearch s = new HillClimbingSearch(cs, null, dVar, new MThreeSwap());
+		GAllDifferentAllSameRange ds = new GAllDifferentAllSameRange();
+		ds.generateSolution(dVar);
 		int curVio = cs.violations();
 		for (int it = 0; it < 100; it++) {
 			System.out.println(it + " " + curVio);

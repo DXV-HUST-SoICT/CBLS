@@ -6,18 +6,19 @@ import localsearch.constraints.alldifferent.AllDifferent;
 import localsearch.model.ConstraintSystem;
 import localsearch.model.LocalSearchManager;
 import localsearch.model.VarIntLS;
+import vuongdx.search.ISolver;
 import vuongdx.search.LocalSearch;
 import vuongdx.search.legal.LBestMove;
 import vuongdx.search.move.MTwoSwap;
 import vuongdx.search.select.SRandom;
 import vuongdx.search.solutiongenerator.GAllDifferentAllSameRange;
 
-public class Sudoku2 {
+public class Sudoku2 implements ISolver {
 	private LocalSearchManager mgr;
 	private VarIntLS[][] X;
 	private ConstraintSystem cs;
 	
-	private void stateModel() {
+	public void stateModel() {
 		mgr = new LocalSearchManager();
 		X = new VarIntLS[9][9];
 		for (int i = 0; i < 9; i++) {
@@ -61,7 +62,7 @@ public class Sudoku2 {
 		mgr.close();
 	}
 	
-	private void search() {
+	public void search() {
 		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
 		for (int i = 0; i < 9; i++)  {
 			dVar.put("main_" + i, X[i]);

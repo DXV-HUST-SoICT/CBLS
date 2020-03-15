@@ -7,6 +7,7 @@ import java.util.HashMap;
 import localsearch.constraints.alldifferent.*;
 import localsearch.functions.basic.*;
 import vuongdx.search.HillClimbingSearch;
+import vuongdx.search.ISolver;
 import vuongdx.search.LocalSearch;
 import vuongdx.search.legal.LBestMove;
 import vuongdx.search.move.MOneChange;
@@ -16,7 +17,7 @@ import vuongdx.search.select.SRandom;
 import vuongdx.search.solutiongenerator.GAllDifferentAllSameRange;
 import vuongdx.search.solutiongenerator.GRandom;
 
-public class NQueen2 {
+public class NQueen2 implements ISolver {
 	private int n; // number of queens
 	private LocalSearchManager mgr; // manager object
 	private VarIntLS[] x; // decision variables
@@ -26,7 +27,7 @@ public class NQueen2 {
 		this.n = n;
 	}
 	
-	private void stateModel() {
+	public void stateModel() {
 		mgr = new LocalSearchManager();
 		
 		x = new VarIntLS[n];
@@ -50,6 +51,10 @@ public class NQueen2 {
 		cs.post(new AllDifferent(f2));
 		
 		mgr.close();
+	}
+	
+	public void search() {
+		
 	}
 	
 	private void search1() {

@@ -128,7 +128,7 @@ public class NQueen2 implements ISolver {
 		}
 	}
 	
-	private void printResult() {
+	public void printResult() {
 		System.out.println(cs.violations());
 		for (int i = 0; i < this.n; i++) {
 			System.out.print(Integer.toString(x[i].getValue()) + ' ');

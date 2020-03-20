@@ -83,7 +83,7 @@ public class Sudoku2 implements ISolver {
 		}
 	}
 	
-	private void printResult() {
+	public void printResult() {
 		System.out.println(cs.violations());
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {

@@ -6,3 +6,4 @@ source-code/version-2.0.1/OpenCBLS/.gitignore
 source-code/version-2.0.1/OpenCBLS/.classpath
 source-code/version-2.0.1/OpenCBLS/.project
 source-code/version-2.0.1/OpenCBLS/bin/
+/source-code/OpenCBLS/.idea/uiDesigner.xml

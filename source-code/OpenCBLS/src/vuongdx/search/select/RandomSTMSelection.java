@@ -4,21 +4,16 @@ import java.util.HashMap;
 import localsearch.model.IConstraint;
 import localsearch.model.IFunction;
 import localsearch.model.VarIntLS;
+import vuongdx.search.IMemoryLS;
 import vuongdx.search.IMoveLS;
 import vuongdx.search.ISelectMoveLS;
 
 public class RandomSTMSelection extends RandomSelection implements ISelectMoveLS {
 	
-	private HashMap<IMoveLS, Integer> mem;
-	private Integer it;
-	private Integer memLen;
-	private Integer best;
+	IMemoryLS mem;
 	
-	public RandomSTMSelection(HashMap<IMoveLS, Integer> mem, Integer it, Integer memLen, Integer best) {
+	public RandomSTMSelection(IMemoryLS mem) {
 		this.mem = mem;
-		this.it = it;
-		this.memLen = memLen;
-		this.best = best;
 	}
 	
 	public IMoveLS select(IConstraint cs,
@@ -27,42 +22,16 @@ public class RandomSTMSelection extends RandomSelection implements ISelectMoveLS
 			IMoveLS[] moveList,
 			IMoveLS[] legalMoveList) {
 		IMoveLS selectedMove = super.select(cs, f, dVar, moveList, legalMoveList);
-		mem.put(selectedMove, it + memLen);
-		it++;
+		this.mem.rememberMove(selectedMove);
 		return selectedMove;
 	}
 	
-	public HashMap<IMoveLS, Integer> getMem() {
+	public IMemoryLS getMem() {
 		return mem;
 	}
 
-	public void setMem(HashMap<IMoveLS, Integer> mem) {
+	public void setMem(IMemoryLS mem) {
 		this.mem = mem;
 	}
 
-	public Integer getIt() {
-		return it;
-	}
-
-	public void setIt(Integer it) {
-		this.it = it;
-	}
-
-	public Integer getMemLen() {
-		return memLen;
-	}
-
-	public void setMemLen(Integer memLen) {
-		this.memLen = memLen;
-	}
-
-	public Integer getBest() {
-		return best;
-	}
-
-	public void setBest(Integer best) {
-		this.best = best;
-	}
-	
-	
 }

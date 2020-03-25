@@ -9,11 +9,11 @@ import localsearch.functions.basic.*;
 import vuongdx.search.HillClimbingSearch;
 import vuongdx.search.ISolver;
 import vuongdx.search.LocalSearch;
-import vuongdx.search.legal.LBestMove;
-import vuongdx.search.move.MOneChange;
-import vuongdx.search.move.MThreeSwap;
-import vuongdx.search.move.MTwoSwap;
-import vuongdx.search.select.SRandom;
+import vuongdx.search.legal.BestMove;
+import vuongdx.search.move.SingleVarChangeValue;
+import vuongdx.search.move.ThreeVarSwap;
+import vuongdx.search.move.TwoVarSwap;
+import vuongdx.search.select.RandomSelection;
 import vuongdx.search.solutiongenerator.GAllDifferentAllSameRange;
 import vuongdx.search.solutiongenerator.GRandom;
 
@@ -61,9 +61,9 @@ public class NQueen2 implements ISolver {
 		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
 		dVar.put("main", x);
 		LocalSearch s = new LocalSearch(cs, null, dVar,
-				new MOneChange(),
-				new LBestMove(),
-				new SRandom());
+				new SingleVarChangeValue(),
+				new BestMove(),
+				new RandomSelection());
 		GRandom rs = new GRandom();
 		rs.generateSolution(dVar);
 		int curVio = cs.violations();
@@ -80,9 +80,9 @@ public class NQueen2 implements ISolver {
 		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
 		dVar.put("main", x);
 		LocalSearch s = new LocalSearch(cs, null, dVar,
-				new MTwoSwap(),
-				new LBestMove(),
-				new SRandom());
+				new TwoVarSwap(),
+				new BestMove(),
+				new RandomSelection());
 		GAllDifferentAllSameRange ds = new GAllDifferentAllSameRange();
 		ds.generateSolution(dVar);
 		int curVio = cs.violations();
@@ -98,7 +98,7 @@ public class NQueen2 implements ISolver {
 	private void search3() {
 		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
 		dVar.put("main", x);
-		LocalSearch s = new HillClimbingSearch(cs, null, dVar, new MTwoSwap());
+		LocalSearch s = new HillClimbingSearch(cs, null, dVar, new TwoVarSwap());
 		GAllDifferentAllSameRange ds = new GAllDifferentAllSameRange();
 		ds.generateSolution(dVar);
 		int curVio = cs.violations();
@@ -115,7 +115,7 @@ public class NQueen2 implements ISolver {
 	private void search4() {
 		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
 		dVar.put("main", x);
-		LocalSearch s = new HillClimbingSearch(cs, null, dVar, new MThreeSwap());
+		LocalSearch s = new HillClimbingSearch(cs, null, dVar, new ThreeVarSwap());
 		GAllDifferentAllSameRange ds = new GAllDifferentAllSameRange();
 		ds.generateSolution(dVar);
 		int curVio = cs.violations();

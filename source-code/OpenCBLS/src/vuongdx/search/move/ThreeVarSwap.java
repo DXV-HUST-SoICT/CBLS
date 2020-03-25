@@ -8,17 +8,17 @@ import localsearch.model.IFunction;
 import localsearch.model.VarIntLS;
 import vuongdx.search.IMoveLS;
 
-public class MThreeSwap implements IMoveLS {
+public class ThreeVarSwap implements IMoveLS {
 	
 	private VarIntLS var1;
 	private VarIntLS var2;
 	private VarIntLS var3;
 	
-	public MThreeSwap() {
+	public ThreeVarSwap() {
 		
 	}
 	
-	public MThreeSwap(VarIntLS var1, VarIntLS var2, VarIntLS var3) {
+	public ThreeVarSwap(VarIntLS var1, VarIntLS var2, VarIntLS var3) {
 		this.var1 = var1;
 		this.var2 = var2;
 		this.var3 = var3;
@@ -81,20 +81,20 @@ public class MThreeSwap implements IMoveLS {
 
 	@Override
 	public IMoveLS[] listMove(IConstraint cs, IFunction[] f, HashMap<String, VarIntLS[]> dVar) {
-		ArrayList<MThreeSwap> tmpMoveList = new ArrayList<MThreeSwap>();
+		ArrayList<ThreeVarSwap> tmpMoveList = new ArrayList<ThreeVarSwap>();
 		for (String key : dVar.keySet()) {
 			VarIntLS[] mVar = dVar.get(key);
 			for (int i = 0; i < mVar.length; i++) {
 				for (int j = i + 1; j < mVar.length; j++) {
 					for (int k = i + 1; k < mVar.length; k++) {
 						if (j != k) {
-							tmpMoveList.add(new MThreeSwap(mVar[i], mVar[j], mVar[k]));
+							tmpMoveList.add(new ThreeVarSwap(mVar[i], mVar[j], mVar[k]));
 						}
 					}
 				}
 			}
 		}
-		MThreeSwap[] moveList = tmpMoveList.toArray(new MThreeSwap[0]);
+		ThreeVarSwap[] moveList = tmpMoveList.toArray(new ThreeVarSwap[0]);
 		return moveList;
 	}
 

@@ -9,7 +9,7 @@ import localsearch.model.VarIntLS;
 import vuongdx.search.IMoveLS;
 import vuongdx.search.ISelectMoveLS;
 
-public class SRandom implements ISelectMoveLS {
+public class RandomSelection implements ISelectMoveLS {
 
 	public IMoveLS select(IConstraint cs,
 			IFunction[] f,

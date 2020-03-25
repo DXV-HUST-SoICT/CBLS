@@ -1,17 +1,15 @@
 package vuongdx.search;
 
-import vuongdx.search.legal.BestMove;
-import vuongdx.search.select.RandomSelection;
-
 import java.util.HashMap;
 
 import localsearch.model.ConstraintSystem;
 import localsearch.model.IFunction;
 import localsearch.model.VarIntLS;
-import vuongdx.search.IMoveLS;;
+import vuongdx.search.legal.BestMove;
+import vuongdx.search.select.RandomSelection;
 
-public final class HillClimbingSearch extends LocalSearch {
-	public HillClimbingSearch(ConstraintSystem cs,
+public class TabuSearch extends LocalSearch {
+	public TabuSearch(ConstraintSystem cs,
 			IFunction[] f,
 			HashMap<String, VarIntLS[]> dVar,
 			IMoveLS moveRule) {

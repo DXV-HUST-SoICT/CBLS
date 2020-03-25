@@ -12,7 +12,7 @@ import localsearch.model.LocalSearchManager;
 import localsearch.model.VarIntLS;
 import vuongdx.search.HillClimbingSearch;
 import vuongdx.search.ISolver;
-import vuongdx.search.move.MOneChange;
+import vuongdx.search.move.SingleVarChangeValue;
 
 public class BCA implements ISolver {
 	private int N = 12;
@@ -70,7 +70,7 @@ public class BCA implements ISolver {
 	public void search() {
 		HashMap<String, VarIntLS[]> dVar = new HashMap<String, VarIntLS[]>();
 		dVar.put("main", X);
-		HillClimbingSearch searcher = new HillClimbingSearch(S, null, dVar, new MOneChange());
+		HillClimbingSearch searcher = new HillClimbingSearch(S, null, dVar, new SingleVarChangeValue());
 		searcher.search(100000);
 	}
 	

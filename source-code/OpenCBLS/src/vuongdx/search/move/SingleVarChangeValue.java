@@ -8,16 +8,16 @@ import localsearch.model.IFunction;
 import localsearch.model.VarIntLS;
 import vuongdx.search.IMoveLS;
 
-public class MOneChange implements IMoveLS {
+public class SingleVarChangeValue implements IMoveLS {
 	
 	private VarIntLS var;
 	private int val;
 	
-	public MOneChange() {
+	public SingleVarChangeValue() {
 		
 	}
 	
-	public MOneChange(VarIntLS var, int val) {
+	public SingleVarChangeValue(VarIntLS var, int val) {
 		this.var = var;
 		this.val = val;
 	}
@@ -50,17 +50,41 @@ public class MOneChange implements IMoveLS {
 	}
 
 	public IMoveLS[] listMove(IConstraint cs, IFunction[] f, HashMap<String, VarIntLS[]> dVar) {
-		ArrayList<MOneChange> tmpMoveList = new ArrayList<MOneChange>();
+		ArrayList<SingleVarChangeValue> tmpMoveList = new ArrayList<SingleVarChangeValue>();
 		for (String key : dVar.keySet()) {
 			VarIntLS[] mVar = dVar.get(key);
 			for (int i = 0; i < mVar.length; i++) {
 				VarIntLS var = mVar[i];
 				for (int val = var.getMinValue(); val <= var.getMaxValue(); val++) {
-					tmpMoveList.add(new MOneChange(var, val));
+					tmpMoveList.add(new SingleVarChangeValue(var, val));
 				}
 			}
 		}
-		MOneChange[] moveList = tmpMoveList.toArray(new MOneChange[0]);
+		SingleVarChangeValue[] moveList = tmpMoveList.toArray(new SingleVarChangeValue[0]);
 		return moveList;
+	}
+	
+	public VarIntLS getVar() {
+		return this.var;
+	}
+	
+	public int getVal() {
+		return this.val;
+	}
+	
+	public boolean equals(SingleVarChangeValue other) {
+		if (!this.getVar().equals(other.getVar())) {
+			return false;
+		}
+		if (this.getVal() != other.getVal()) {
+			return false;
+		}
+		return true;
+	}
+	
+	public int hashCode() {
+		Integer hc = this.var.hashCode();
+		hc = hc * 31 + this.val;
+		return hc;
 	}
 }

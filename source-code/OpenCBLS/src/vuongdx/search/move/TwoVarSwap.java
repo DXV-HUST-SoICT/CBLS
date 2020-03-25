@@ -8,16 +8,16 @@ import localsearch.model.IFunction;
 import localsearch.model.VarIntLS;
 import vuongdx.search.IMoveLS;
 
-public class MTwoSwap implements IMoveLS {
+public class TwoVarSwap implements IMoveLS {
 	
 	private VarIntLS var1;
 	private VarIntLS var2;
 	
-	public MTwoSwap() {
+	public TwoVarSwap() {
 		
 	}
 	
-	public MTwoSwap(VarIntLS var1, VarIntLS var2) {
+	public TwoVarSwap(VarIntLS var1, VarIntLS var2) {
 		this.var1 = var1;
 		this.var2 = var2;
 	}
@@ -54,16 +54,16 @@ public class MTwoSwap implements IMoveLS {
 
 	@Override
 	public IMoveLS[] listMove(IConstraint cs, IFunction[] f, HashMap<String, VarIntLS[]> dVar) {
-		ArrayList<MTwoSwap> tmpMoveList = new ArrayList<MTwoSwap>();
+		ArrayList<TwoVarSwap> tmpMoveList = new ArrayList<TwoVarSwap>();
 		for (String key : dVar.keySet()) {
 			VarIntLS[] mVar = dVar.get(key);
 			for (int i = 0; i < mVar.length; i++) {
 				for (int j = i + 1; j < mVar.length; j++) {
-					tmpMoveList.add(new MTwoSwap(mVar[i], mVar[j]));
+					tmpMoveList.add(new TwoVarSwap(mVar[i], mVar[j]));
 				}
 			}
 		}
-		MTwoSwap[] moveList = tmpMoveList.toArray(new MTwoSwap[0]);
+		TwoVarSwap[] moveList = tmpMoveList.toArray(new TwoVarSwap[0]);
 		return moveList;
 	}
 

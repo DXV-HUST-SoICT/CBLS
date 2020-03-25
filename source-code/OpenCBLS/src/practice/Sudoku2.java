@@ -8,9 +8,9 @@ import localsearch.model.LocalSearchManager;
 import localsearch.model.VarIntLS;
 import vuongdx.search.ISolver;
 import vuongdx.search.LocalSearch;
-import vuongdx.search.legal.LBestMove;
-import vuongdx.search.move.MTwoSwap;
-import vuongdx.search.select.SRandom;
+import vuongdx.search.legal.BestMove;
+import vuongdx.search.move.TwoVarSwap;
+import vuongdx.search.select.RandomSelection;
 import vuongdx.search.solutiongenerator.GAllDifferentAllSameRange;
 
 public class Sudoku2 implements ISolver {
@@ -70,9 +70,9 @@ public class Sudoku2 implements ISolver {
 		GAllDifferentAllSameRange ss = new GAllDifferentAllSameRange();
 		ss.generateSolution(dVar);
 		LocalSearch s = new LocalSearch(cs, null, dVar,
-				new MTwoSwap(),
-				new LBestMove(),
-				new SRandom());
+				new TwoVarSwap(),
+				new BestMove(),
+				new RandomSelection());
 		int curVio = cs.violations();
 		for (int it = 0; it < 100; it++) {
 			System.out.println(it + " " + curVio);

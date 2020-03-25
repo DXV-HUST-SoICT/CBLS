@@ -14,9 +14,9 @@ import localsearch.model.LocalSearchManager;
 import localsearch.model.VarIntLS;
 import vuongdx.search.ISolver;
 import vuongdx.search.LocalSearch;
-import vuongdx.search.legal.LBestMove;
-import vuongdx.search.move.MOneChange;
-import vuongdx.search.select.SRandom;
+import vuongdx.search.legal.BestMove;
+import vuongdx.search.move.SingleVarChangeValue;
+import vuongdx.search.select.RandomSelection;
 import vuongdx.search.solutiongenerator.GRandom;
 
 public class BinPacking2D implements ISolver {
@@ -115,9 +115,9 @@ public class BinPacking2D implements ISolver {
 		dVar.put("y", y);
 		dVar.put("o", o);
 		LocalSearch s = new LocalSearch(cs, null, dVar,
-				new MOneChange(),
-				new LBestMove(),
-				new SRandom());
+				new SingleVarChangeValue(),
+				new BestMove(),
+				new RandomSelection());
 		GRandom rs = new GRandom();
 		rs.generateSolution(dVar);
 		int curVio = cs.violations();

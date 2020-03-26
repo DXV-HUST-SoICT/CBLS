@@ -71,7 +71,7 @@ public class NQueenTabu implements ISolver {
     }
 
     public static void main(String[] args) {
-        NQueenTabu nqueen = new NQueenTabu(2000);
+        NQueenTabu nqueen = new NQueenTabu(200);
         nqueen.stateModel();
         nqueen.search();
         nqueen.printResult();

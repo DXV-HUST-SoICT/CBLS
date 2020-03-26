@@ -33,14 +33,6 @@ public class TabuSearch extends LocalSearch {
 		this(cs, f, dVar, moveRule, 0);
 	}
 
-	public int search() {
-		IMoveLS[] moveList = this.moveRule.listMove(cs, null, dVar);
-		IMoveLS[] legalMoveList = this.legalMoveRule.listLegal(cs, null, dVar, moveList);
-		IMoveLS selectedMove = this.selectMoveRule.select(cs, null, dVar, moveList, legalMoveList);
-		selectedMove.movePropagate(dVar);
-		return cs.violations();
-	}
-
 	public int search(int numIter, int maxStable, ISolutionGeneratorLS g) {
 		int it = 0;
 		int nic = 0;

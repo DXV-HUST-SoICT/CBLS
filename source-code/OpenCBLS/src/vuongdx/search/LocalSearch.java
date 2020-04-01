@@ -33,9 +33,9 @@ public class LocalSearch {
 	}
 	
 	public int search() {
-		IMoveLS[] moveList = this.moveRule.listMove(cs, null, dVar);
-		IMoveLS[] legalMoveList = this.legalMoveRule.listLegal(cs, null, dVar, moveList);
-		IMoveLS selectedMove = this.selectMoveRule.select(cs, null, dVar, moveList, legalMoveList);
+		IMoveLS[] moveList = this.moveRule.listMove(cs, f, dVar);
+		IMoveLS[] legalMoveList = this.legalMoveRule.listLegal(cs, f, dVar, moveList);
+		IMoveLS selectedMove = this.selectMoveRule.select(cs, f, dVar, moveList, legalMoveList);
 		selectedMove.movePropagate(dVar);
 		return cs.violations();
 	}

@@ -124,8 +124,8 @@ public class Container implements ISolver {
 				t31[1] = new LessOrEqual(new FuncPlus(y[i], yy[i]), new FuncPlus(x[j], xx[j]));
 				t32[0] = new LessOrEqual(new FuncPlus(y[i], 1), new FuncPlus(x[j], xx[j]));
 				t32[1] = new LessOrEqual(new FuncPlus(x[j], xx[j]), new FuncPlus(y[i], yy[i]));
-				t33[0] = new AND(t11);
-				t33[1] = new AND(t12);
+				t33[0] = new AND(t31);
+				t33[1] = new AND(t32);
 				IConstraint tmp3 = new Implicate(new OR(t33), new LessThan(x[i], y[j]));
 				cs.post(new Implicate(new AND(lt3), tmp3));
 				

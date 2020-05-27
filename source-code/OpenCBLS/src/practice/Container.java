@@ -161,12 +161,12 @@ public class Container implements ISolver {
 		dVar.put("x", x);
 		dVar.put("y", y);
 		dVar.put("o", o);
+		GRandom rs = new GRandom();
+		
 		LocalSearch s = new LocalSearch(cs, null, dVar,
 				new SingleVarChangeValue(),
 				new BestMove(),
 				new RandomSelection());
-//		TabuSearch s = new TabuSearch(cs, null, dVar, new SingleVarChangeValue(), 5);
-		GRandom rs = new GRandom();
 		rs.generateSolution(dVar);
 		int curVio = cs.violations();
 		for (int it = 0; it < 1000; it++) {
@@ -176,6 +176,9 @@ public class Container implements ISolver {
 			}
 			curVio = s.search();
 		}
+		
+//		TabuSearch s = new TabuSearch(cs, null, dVar, new SingleVarChangeValue(), 5);
+//		s.search(10000, 100, rs);
 	}
 
 	@Override

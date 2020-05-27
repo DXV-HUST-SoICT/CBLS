@@ -99,13 +99,13 @@ public class Container implements ISolver {
 				IConstraint[] t21 = new IConstraint[2];
 				IConstraint[] t22 = new IConstraint[2];
 				IConstraint[] t23 = new IConstraint[2];
-				t21[0] = new LessOrEqual(new FuncPlus(y[j], 1), new FuncPlus(x[i], xx[i]));
-				t21[1] = new LessOrEqual(new FuncPlus(x[i], xx[i]), new FuncPlus(y[j], yy[j]));
-				t22[0] = new LessOrEqual(new FuncPlus(x[i], 1), new FuncPlus(y[j], yy[j]));
-				t22[1] = new LessOrEqual(new FuncPlus(y[j], yy[j]), new FuncPlus(x[i], xx[i]));
+				t21[0] = new LessOrEqual(new FuncPlus(x[j], 1), new FuncPlus(x[i], xx[i]));
+				t21[1] = new LessOrEqual(new FuncPlus(x[i], xx[i]), new FuncPlus(x[j], yy[j]));
+				t22[0] = new LessOrEqual(new FuncPlus(x[i], 1), new FuncPlus(x[j], yy[j]));
+				t22[1] = new LessOrEqual(new FuncPlus(x[j], yy[j]), new FuncPlus(x[i], xx[i]));
 				t23[0] = new AND(t21);
 				t23[1] = new AND(t22);
-				IConstraint tmp2 = new Implicate(new OR(t23), new LessThan(y[i], x[j]));
+				IConstraint tmp2 = new Implicate(new OR(t23), new LessThan(y[i], y[j]));
 				cs.post(new Implicate(new AND(lt2), tmp2));
 				
 				IConstraint[] lt3 = new IConstraint[2];
@@ -120,13 +120,13 @@ public class Container implements ISolver {
 				IConstraint[] t31 = new IConstraint[2];
 				IConstraint[] t32 = new IConstraint[2];
 				IConstraint[] t33 = new IConstraint[2];
-				t31[0] = new LessOrEqual(new FuncPlus(x[j], 1), new FuncPlus(y[i], yy[i]));
-				t31[1] = new LessOrEqual(new FuncPlus(y[i], yy[i]), new FuncPlus(x[j], xx[j]));
-				t32[0] = new LessOrEqual(new FuncPlus(y[i], 1), new FuncPlus(x[j], xx[j]));
-				t32[1] = new LessOrEqual(new FuncPlus(x[j], xx[j]), new FuncPlus(y[i], yy[i]));
+				t31[0] = new LessOrEqual(new FuncPlus(x[j], 1), new FuncPlus(x[i], yy[i]));
+				t31[1] = new LessOrEqual(new FuncPlus(x[i], yy[i]), new FuncPlus(x[j], xx[j]));
+				t32[0] = new LessOrEqual(new FuncPlus(x[i], 1), new FuncPlus(x[j], xx[j]));
+				t32[1] = new LessOrEqual(new FuncPlus(x[j], xx[j]), new FuncPlus(x[i], yy[i]));
 				t33[0] = new AND(t31);
 				t33[1] = new AND(t32);
-				IConstraint tmp3 = new Implicate(new OR(t33), new LessThan(x[i], y[j]));
+				IConstraint tmp3 = new Implicate(new OR(t33), new LessThan(y[i], y[j]));
 				cs.post(new Implicate(new AND(lt3), tmp3));
 				
 				IConstraint[] lt4 = new IConstraint[2];
@@ -141,13 +141,13 @@ public class Container implements ISolver {
 				IConstraint[] t41 = new IConstraint[2];
 				IConstraint[] t42 = new IConstraint[2];
 				IConstraint[] t43 = new IConstraint[2];
-				t41[0] = new LessOrEqual(new FuncPlus(y[j], 1), new FuncPlus(y[i], yy[i]));
-				t41[1] = new LessOrEqual(new FuncPlus(y[i], yy[i]), new FuncPlus(y[j], yy[j]));
-				t42[0] = new LessOrEqual(new FuncPlus(y[i], 1), new FuncPlus(y[j], yy[j]));
-				t42[1] = new LessOrEqual(new FuncPlus(y[j], yy[j]), new FuncPlus(y[i], yy[i]));
+				t41[0] = new LessOrEqual(new FuncPlus(x[j], 1), new FuncPlus(x[i], yy[i]));
+				t41[1] = new LessOrEqual(new FuncPlus(x[i], yy[i]), new FuncPlus(x[j], yy[j]));
+				t42[0] = new LessOrEqual(new FuncPlus(x[i], 1), new FuncPlus(x[j], yy[j]));
+				t42[1] = new LessOrEqual(new FuncPlus(x[j], yy[j]), new FuncPlus(x[i], yy[i]));
 				t43[0] = new AND(t41);
 				t43[1] = new AND(t42);
-				IConstraint tmp4 = new Implicate(new OR(t43), new LessThan(x[i], x[j]));
+				IConstraint tmp4 = new Implicate(new OR(t43), new LessThan(y[i], y[j]));
 				cs.post(new Implicate(new AND(lt4), tmp4));
 			}
 		}
